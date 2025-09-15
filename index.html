@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Climlyze</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="logo"><i class="fas fa-cloud-sun"></i> Climlyze</div>
+      <div class="nav-items">
+        <input type="text" id="cityInput" placeholder="Search city" />
+        <button id="searchBtn"><i class="fas fa-search"></i></button>
+        <button id="locBtn" title="Use Current Location">
+          <i class="fas fa-location-arrow"></i>
+        </button>
+        <div class="toggle-container">
+          <button id="darkToggleBtn" class="dark-toggle">🌞</button>
+        </div>
+      </div>
+    </nav>
+
+    <main>
+      <!-- Weather Card -->
+      <section class="weather-display card">
+        <div class="weather-header">
+          <h2 id="cityName">--</h2>
+          <i id="weatherIcon" class="fas fa-sun"></i>
+        </div>
+        <p id="temperature" class="temp">-- °C</p>
+        <p id="condition" class="condition">--</p>
+        <div class="weather-details">
+          <p id="humidity"><i class="fas fa-tint"></i> Humidity: --%</p>
+          <p id="aqi"><i class="fas fa-smog"></i> AQI: --</p>
+        </div>
+      </section>
+
+      <!-- Charts Card -->
+      <section class="charts card">
+        <h3>Temperature Forecast</h3>
+        <canvas id="tempChart"></canvas>
+        <h3>AQI Forecast</h3>
+        <canvas id="aqiChart"></canvas>
+      </section>
+    </main>
+
+    <footer>
+      <p>© 2025 Climlyze | Weather & AQI Insights</p>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>

@@ -1,0 +1,228 @@
+/* ===== VARIABLES ===== */
+:root {
+  --bg-light: #f4f6f8;
+  --bg-dark: #121212;
+  --card-light: #ffffff;
+  --card-dark: #1f1f1f;
+  --text-light: #121212;
+  --text-dark: #f4f6f8;
+  --primary: #1e90ff;
+  --secondary: #555;
+  --accent: #ff7f50;
+  --shadow: rgba(0, 0, 0, 0.15);
+  --radius: 12px;
+}
+
+/* ===== GLOBAL ===== */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  background: var(--bg-light);
+  color: var(--text-light);
+  transition: all 0.3s ease;
+}
+
+body.dark-mode {
+  background: var(--bg-dark);
+  color: var(--text-dark);
+}
+
+.card {
+  background-color: var(--card-light);
+  padding: 1.8rem;
+  border-radius: var(--radius);
+  box-shadow: 0 6px 20px var(--shadow);
+  transition: all 0.3s;
+}
+
+body.dark-mode .card {
+  background-color: var(--card-dark);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+}
+
+/* ===== NAVBAR ===== */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background: linear-gradient(90deg, #1e90ff, #00bfff);
+  color: #fff;
+  flex-wrap: wrap;
+}
+
+.navbar .logo {
+  font-size: 1.8rem;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+.navbar .logo i {
+  margin-right: 0.5rem;
+}
+
+.nav-items {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.nav-items input[type="text"] {
+  padding: 0.5rem 0.8rem;
+  border-radius: var(--radius);
+  border: none;
+  outline: none;
+}
+
+.nav-items button {
+  padding: 0.5rem 0.8rem;
+  border: none;
+  border-radius: var(--radius);
+  cursor: pointer;
+  font-weight: bold;
+  background: #fff;
+  color: var(--primary);
+  transition: 0.3s;
+}
+
+.nav-items button:hover {
+  background: var(--accent);
+  color: #fff;
+}
+
+/* Toggle Button */
+.dark-toggle {
+  font-size: 1.5rem;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.3s;
+}
+
+.dark-toggle:hover {
+  transform: scale(1.2);
+}
+
+/* ===== MAIN ===== */
+main {
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+/* Weather Display */
+.weather-display {
+  text-align: center;
+  position: relative;
+}
+
+.weather-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.weather-header h2 {
+  font-size: 2rem;
+}
+
+#weatherIcon {
+  font-size: 2.5rem;
+  color: var(--accent);
+}
+
+.temp {
+  font-size: 2rem;
+  font-weight: 600;
+  margin: 0.5rem 0;
+}
+
+.condition {
+  font-size: 1.2rem;
+  color: var(--secondary);
+  margin-bottom: 0.8rem;
+}
+
+.weather-details {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  font-size: 1rem;
+}
+
+.weather-details p i {
+  margin-right: 0.3rem;
+  color: var(--primary);
+}
+
+/* Charts */
+.charts h3 {
+  margin: 1rem 0 0.5rem;
+  font-size: 1.3rem;
+  text-align: center;
+}
+
+.charts canvas {
+  margin-bottom: 1.5rem;
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 1rem;
+  font-size: 0.9rem;
+  color: var(--secondary);
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 480px) {
+  .nav-items {
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+  .weather-details {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  main {
+    padding: 1rem;
+    gap: 1.5rem;
+  }
+}
+
+@media (min-width: 481px) and (max-width: 767px) {
+  main {
+    gap: 2rem;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+  .charts {
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+  }
+  .charts canvas {
+    width: 100%;
+    height: 300px;
+  }
+}
+
+@media (min-width: 1025px) {
+  .charts {
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+  }
+  .charts canvas {
+    width: 100%;
+    height: 350px;
+  }
+}
