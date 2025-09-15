@@ -142,9 +142,19 @@ body {
 }
 
 @media (min-width: 769px) {
+.hourly-forecast {
+overflow-x: hidden;
+flex-wrap: wrap;
+}
+}
+
+@media (min-width: 1300px) {
   .hourly-forecast {
-    overflow-x: hidden;
-    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .charts {
+    max-width: 600px;
+    margin: 0 auto;
   }
 }
 
