@@ -1,59 +1,81 @@
+<!-- ================= HTML ================= -->
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Climlyze</title>
-    <link rel="stylesheet" href="style.css" />
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
-    />
-  </head>
-  <body>
-    <nav class="navbar">
-      <div class="logo"><i class="fas fa-cloud-sun"></i> Climlyze</div>
-      <div class="nav-items">
-        <input type="text" id="cityInput" placeholder="Search city" />
-        <button id="searchBtn"><i class="fas fa-search"></i></button>
-        <button id="locBtn" title="Use Current Location">
-          <i class="fas fa-location-arrow"></i>
-        </button>
-        <div class="toggle-container">
-          <button id="darkToggleBtn" class="dark-toggle">🌞</button>
-        </div>
-      </div>
-    </nav>
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Climlyze</title>
+<link rel="stylesheet" href="style.css" />
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+<body>
+<div class="app-container">
+<!-- Navbar -->
+<nav class="navbar">
+<input type="search" id="searchBar" placeholder="Search locations..." />
+<button id="themeToggle"><i class="fas fa-moon"></i></button>
+</nav>
 
-    <main>
-      <!-- Weather Card -->
-      <section class="weather-display card">
-        <div class="weather-header">
-          <h2 id="cityName">--</h2>
-          <i id="weatherIcon" class="fas fa-sun"></i>
-        </div>
-        <p id="temperature" class="temp">-- °C</p>
-        <p id="condition" class="condition">--</p>
-        <div class="weather-details">
-          <p id="humidity"><i class="fas fa-tint"></i> Humidity: --%</p>
-          <p id="aqi"><i class="fas fa-smog"></i> AQI: --</p>
-        </div>
-      </section>
+<!-- Main Content -->
+<main class="dashboard">
+<header class="dashboard-header">
+<h1 id="cityName">Kolkata</h1>
+<p class="main-condition">27° | Cloudy</p>
+</header>
 
-      <!-- Charts Card -->
-      <section class="charts card">
-        <h3>Temperature Forecast</h3>
-        <canvas id="tempChart"></canvas>
-        <h3>AQI Forecast</h3>
-        <canvas id="aqiChart"></canvas>
-      </section>
-    </main>
 
-    <footer>
-      <p>© 2025 Climlyze | Weather & AQI Insights</p>
-    </footer>
+<!-- Hourly Forecast -->
+<section class="hourly-forecast card" id="hourlyForecast"></section>
 
-    <script src="script.js"></script>
-  </body>
+
+<!-- 5 Day Forecast + AQI -->
+<section class="info-grid">
+<div class="card ten-day">
+<h3>5-Day Forecast</h3>
+<ul id="tenDayForecast"></ul>
+</div>
+<div class="card air-quality">
+<h3>Air Quality</h3>
+<p id="aqiDisplay">--</p>
+<small>Updated in real time</small>
+</div>
+</section>
+
+
+<!-- Charts -->
+<section class="charts card">
+<h3>Temperature & AQI Trend</h3>
+<canvas id="tempChart"></canvas>
+<canvas id="aqiChart"></canvas>
+</section>
+
+
+<!-- Other Info -->
+<section class="stats-grid">
+<div class="card">Humidity: <span id="humidity">--%</span></div>
+<div class="card">Feels Like: <span id="feelsLike">--°</span></div>
+<div class="card">Visibility: <span id="visibility">-- km</span></div>
+<div class="card">Pressure: <span id="pressure">-- hPa</span></div>
+</section>
+</main>
+
+<!-- Login Popup Modal -->
+<div id="loginModal" class="modal">
+<div class="modal-content">
+<span class="close">&times;</span>
+<h2>Login</h2>
+<form id="loginForm">
+<label for="username">Username:</label>
+<input type="text" id="username" name="username" required>
+<label for="password">Password:</label>
+<input type="password" id="password" name="password" required>
+<button type="submit">Login</button>
+<button type="button" id="cancelBtn">Cancel</button>
+</form>
+</div>
+</div>
+</div>
+<script src="script.js"></script>
+</body>
 </html>
