@@ -153,9 +153,13 @@ flex-wrap: wrap;
     justify-content: center;
   }
   .charts {
-    max-width: 600px;
+    width: 90%;
     margin: 0 auto;
   }
+}
+
+.charts canvas {
+  max-height: 250px;
 }
 
 .hour-card {
@@ -324,5 +328,8 @@ flex-wrap: wrap;
   }
   .logo {
     margin-bottom: 0.5rem;
+  }
+  .charts {
+    padding: 0.1rem;
   }
 }
