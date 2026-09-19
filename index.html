@@ -1,0 +1,947 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="Climlyze — Professional weather, forecast and Indian air quality dashboard."
+    >
+
+    <title>Climlyze — Weather Intelligence</title>
+
+
+    <!-- =====================================================
+         GOOGLE FONT
+         ===================================================== -->
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+
+    <!-- =====================================================
+         FONT AWESOME
+         ===================================================== -->
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    >
+
+
+    <!-- =====================================================
+         LEAFLET MAP
+         ===================================================== -->
+
+    <link
+        rel="stylesheet"
+        href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    >
+
+
+    <!-- =====================================================
+         CHART.JS
+         ===================================================== -->
+
+    <script
+        src="https://cdn.jsdelivr.net/npm/chart.js"
+    ></script>
+
+
+    <!-- =====================================================
+         MAIN CSS
+         ===================================================== -->
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+
+</head>
+
+
+<body>
+
+<div class="app-shell">
+
+
+    <!-- =====================================================
+         NAVBAR
+         ===================================================== -->
+
+    <nav class="navbar">
+
+        <!-- BRAND -->
+
+        <button
+            class="brand"
+            id="brandButton"
+            type="button"
+            aria-label="Refresh Climlyze"
+        >
+
+            <img
+                src="ClimLyze.png"
+                alt="Climlyze Logo"
+            >
+
+            <div class="brand-text">
+
+                <strong>
+                    Climlyze
+                </strong>
+
+                <span>
+                    Weather Intelligence
+                </span>
+
+            </div>
+
+        </button>
+
+
+        <!-- SEARCH -->
+
+        <div class="search-wrap">
+
+            <i class="fas fa-location-dot"></i>
+
+            <input
+                type="search"
+                id="searchBar"
+                placeholder="Search city, region or country..."
+                autocomplete="off"
+                aria-label="Search location"
+            >
+
+            <button
+                id="searchButton"
+                class="search-button"
+                type="button"
+                aria-label="Search"
+            >
+
+                <i class="fas fa-search"></i>
+
+            </button>
+
+            <span class="search-hint">
+                Enter
+            </span>
+
+        </div>
+
+
+        <!-- THEME -->
+
+        <button
+            id="themeToggle"
+            class="icon-btn"
+            type="button"
+            aria-label="Toggle theme"
+        >
+
+            <i class="fas fa-moon"></i>
+
+        </button>
+
+    </nav>
+
+
+
+    <!-- =====================================================
+         MAIN DASHBOARD
+         ===================================================== -->
+
+    <main class="dashboard">
+
+
+        <!-- =================================================
+             HERO SECTION
+             ================================================= -->
+
+        <section class="hero-grid">
+
+
+            <!-- =============================================
+                 CURRENT WEATHER
+                 ============================================= -->
+
+            <div class="hero-card card">
+
+                <div class="hero-top">
+
+                    <div>
+
+                        <div class="eyebrow">
+
+                            <i
+                                class="fas fa-location-dot"
+                            ></i>
+
+                            <span id="cityName">
+                                Kolkata
+                            </span>
+
+                        </div>
+
+                        <div
+                            class="updated"
+                            id="updatedText"
+                        >
+                            Live weather conditions
+                        </div>
+
+                    </div>
+
+
+                    <div
+                        class="hero-date"
+                        id="todayDate"
+                    >
+                    </div>
+
+                </div>
+
+
+                <!-- CURRENT TEMPERATURE -->
+
+                <div class="current-row">
+
+                    <div
+                        class="weather-icon"
+                        id="weatherIcon"
+                    >
+
+                        <i
+                            class="fas fa-cloud-sun"
+                        ></i>
+
+                    </div>
+
+
+                    <div class="current-weather">
+
+                        <div
+                            class="temperature"
+                            id="mainTemp"
+                        >
+                            --
+                        </div>
+
+
+                        <div
+                            class="condition"
+                            id="mainCondition"
+                        >
+                            Loading...
+                        </div>
+
+
+                        <div class="feels">
+
+                            Feels like
+
+                            <span id="feelsLike">
+                                --°
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- CURRENT WEATHER STATS -->
+
+                <div class="hero-stats">
+
+                    <div>
+
+                        <span>
+                            Humidity
+                        </span>
+
+                        <strong id="humidity">
+                            --%
+                        </strong>
+
+                    </div>
+
+
+                    <div>
+
+                        <span>
+                            Visibility
+                        </span>
+
+                        <strong id="visibility">
+                            -- km
+                        </strong>
+
+                    </div>
+
+
+                    <div>
+
+                        <span>
+                            Pressure
+                        </span>
+
+                        <strong id="pressure">
+                            -- hPa
+                        </strong>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =============================================
+                 INDIAN AQI
+                 ============================================= -->
+
+            <div class="aqi-card card">
+
+                <div class="section-label">
+                    INDIAN AIR QUALITY INDEX
+                </div>
+
+
+                <div class="aqi-head">
+
+                    <div>
+
+                        <div
+                            class="aqi-value"
+                            id="aqiDisplay"
+                        >
+                            AQI: --
+                        </div>
+
+
+                        <p
+                            id="aqiCategory"
+                        >
+                            Calculating air quality...
+                        </p>
+
+
+                        <small
+                            id="aqiSource"
+                        >
+                            Calculated using CPCB methodology
+                        </small>
+
+                    </div>
+
+
+                    <div class="aqi-icon">
+
+                        <i
+                            class="fas fa-wind"
+                        ></i>
+
+                    </div>
+
+                </div>
+
+
+                <!-- AQI SCALE -->
+
+                <div class="aqi-scale">
+
+                    <span>
+                        Good
+                    </span>
+
+                    <span>
+                        Satisfactory
+                    </span>
+
+                    <span>
+                        Moderate
+                    </span>
+
+                    <span>
+                        Poor
+                    </span>
+
+                    <span>
+                        Very Poor
+                    </span>
+
+                    <span>
+                        Severe
+                    </span>
+
+                </div>
+
+
+                <!-- AQI BAR -->
+
+                <div class="aqi-bar">
+
+                    <i
+                        id="aqiIndicator"
+                    ></i>
+
+                </div>
+
+
+                <!-- PRIMARY POLLUTANT -->
+
+                <div class="primary-pollutant">
+
+                    <span>
+                        Primary pollutant
+                    </span>
+
+                    <strong
+                        id="primaryPollutant"
+                    >
+                        --
+                    </strong>
+
+                </div>
+
+
+                <!-- POLLUTANTS -->
+
+                <div class="pollutant-grid">
+
+
+                    <div class="pollutant">
+
+                        <span>
+                            PM2.5
+                        </span>
+
+                        <strong id="pm25">
+                            --
+                        </strong>
+
+                        <small>
+                            µg/m³
+                        </small>
+
+                    </div>
+
+
+                    <div class="pollutant">
+
+                        <span>
+                            PM10
+                        </span>
+
+                        <strong id="pm10">
+                            --
+                        </strong>
+
+                        <small>
+                            µg/m³
+                        </small>
+
+                    </div>
+
+
+                    <div class="pollutant">
+
+                        <span>
+                            NO₂
+                        </span>
+
+                        <strong id="no2">
+                            --
+                        </strong>
+
+                        <small>
+                            µg/m³
+                        </small>
+
+                    </div>
+
+
+                    <div class="pollutant">
+
+                        <span>
+                            SO₂
+                        </span>
+
+                        <strong id="so2">
+                            --
+                        </strong>
+
+                        <small>
+                            µg/m³
+                        </small>
+
+                    </div>
+
+
+                    <div class="pollutant">
+
+                        <span>
+                            O₃
+                        </span>
+
+                        <strong id="o3">
+                            --
+                        </strong>
+
+                        <small>
+                            µg/m³
+                        </small>
+
+                    </div>
+
+
+                    <div class="pollutant">
+
+                        <span>
+                            CO
+                        </span>
+
+                        <strong id="co">
+                            --
+                        </strong>
+
+                        <small>
+                            mg/m³
+                        </small>
+
+                    </div>
+
+
+                    <div class="pollutant">
+
+                        <span>
+                            NH₃
+                        </span>
+
+                        <strong id="nh3">
+                            --
+                        </strong>
+
+                        <small>
+                            µg/m³
+                        </small>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             HOURLY FORECAST
+             ================================================= -->
+
+        <section class="card forecast-card">
+
+            <div class="section-heading">
+
+                <div>
+
+                    <h2>
+                        Hourly forecast
+                    </h2>
+
+                    <p>
+                        Upcoming weather conditions
+                    </p>
+
+                </div>
+
+
+                <span class="section-icon">
+
+                    <i
+                        class="fas fa-clock"
+                    ></i>
+
+                </span>
+
+            </div>
+
+
+            <div
+                class="hourly-forecast"
+                id="hourlyForecast"
+            >
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             FORECAST + CHARTS
+             ================================================= -->
+
+        <section class="content-grid">
+
+
+            <!-- =============================================
+                 5 DAY FORECAST
+                 ============================================= -->
+
+            <div class="card ten-day">
+
+                <div class="section-heading">
+
+                    <div>
+
+                        <h2>
+                            5-day forecast
+                        </h2>
+
+                        <p>
+                            Daily conditions and temperature
+                        </p>
+
+                    </div>
+
+
+                    <span class="section-icon">
+
+                        <i
+                            class="fas fa-calendar-days"
+                        ></i>
+
+                    </span>
+
+                </div>
+
+
+                <ul
+                    id="tenDayForecast"
+                >
+                </ul>
+
+            </div>
+
+
+
+            <!-- =============================================
+                 CHARTS
+                 ============================================= -->
+
+            <div class="card charts">
+
+
+                <!-- TEMPERATURE CHART -->
+
+                <div class="section-heading">
+
+                    <div>
+
+                        <h2>
+                            Temperature trend
+                        </h2>
+
+                        <p>
+                            Upcoming hourly temperature
+                        </p>
+
+                    </div>
+
+
+                    <span class="section-icon">
+
+                        <i
+                            class="fas fa-chart-line"
+                        ></i>
+
+                    </span>
+
+                </div>
+
+
+                <div class="chart-container">
+
+                    <canvas
+                        id="tempChart"
+                    ></canvas>
+
+                </div>
+
+
+                <div class="chart-divider">
+                </div>
+
+
+                <!-- AQI CHART -->
+
+                <div class="section-heading">
+
+                    <div>
+
+                        <h2>
+                            Indian AQI
+                        </h2>
+
+                        <p>
+                            Current calculated AQI
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="chart-container">
+
+                    <canvas
+                        id="aqiChart"
+                    ></canvas>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             WEATHER MAP
+             ================================================= -->
+
+        <section class="card weather-map">
+
+            <div class="section-heading">
+
+                <div>
+
+                    <h2>
+                        Weather map
+                    </h2>
+
+                    <p>
+                        Interactive conditions around your location
+                    </p>
+
+                </div>
+
+
+                <span class="section-icon">
+
+                    <i
+                        class="fas fa-map"
+                    ></i>
+
+                </span>
+
+            </div>
+
+
+            <div
+                id="weatherMap"
+            >
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             WEATHER STATISTICS
+             ================================================= -->
+
+        <section class="stats-grid">
+
+
+            <div class="stat-card card">
+
+                <div class="stat-icon">
+
+                    <i
+                        class="fas fa-temperature-half"
+                    ></i>
+
+                </div>
+
+                <div>
+
+                    <span>
+                        Feels like
+                    </span>
+
+                    <strong id="feelsLike2">
+                        --°
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <div class="stat-card card">
+
+                <div class="stat-icon">
+
+                    <i
+                        class="fas fa-droplet"
+                    ></i>
+
+                </div>
+
+                <div>
+
+                    <span>
+                        Humidity
+                    </span>
+
+                    <strong id="humidity2">
+                        --%
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <div class="stat-card card">
+
+                <div class="stat-icon">
+
+                    <i
+                        class="fas fa-eye"
+                    ></i>
+
+                </div>
+
+                <div>
+
+                    <span>
+                        Visibility
+                    </span>
+
+                    <strong id="visibility2">
+                        -- km
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <div class="stat-card card">
+
+                <div class="stat-icon">
+
+                    <i
+                        class="fas fa-gauge-high"
+                    ></i>
+
+                </div>
+
+                <div>
+
+                    <span>
+                        Pressure
+                    </span>
+
+                    <strong id="pressure2">
+                        -- hPa
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             FOOTER
+             ================================================= -->
+
+        <footer>
+
+            <div class="footer-brand">
+
+                <img
+                    src="ClimLyze.png"
+                    alt="Climlyze"
+                >
+
+                <strong>
+                    Climlyze
+                </strong>
+
+            </div>
+
+
+            <span>
+                Real-time weather intelligence
+            </span>
+
+
+            <span class="footer-dot">
+                •
+            </span>
+
+
+            <span>
+                Weather data powered by OpenWeather
+            </span>
+
+        </footer>
+
+    </main>
+
+</div>
+
+
+
+<!-- =======================================================
+     LEAFLET
+     ======================================================= -->
+
+<script
+    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+></script>
+
+
+
+<!-- =======================================================
+     MAIN JAVASCRIPT
+     ======================================================= -->
+
+<script
+    src="script.js"
+></script>
+
+</body>
+
+</html>
