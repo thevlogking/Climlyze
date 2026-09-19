@@ -1,27 +1,4 @@
-/* =========================================================
-   CLIMLYZE
-   PROFESSIONAL WEATHER APPLICATION
-   WEATHER + INDIAN AQI
-   ========================================================= */
-
-
-/* =========================================================
-   OPENWEATHER API KEY
-   ========================================================= */
-
-/*
-   IMPORTANT:
-
-   Paste your EXISTING OpenWeather API key here.
-
-   Example:
-
-   const API_KEY = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx";
-
-*/
-
 const API_KEY = "4f2ded401e9a4de4f2fda13cfdd35a2c";
-
 
 /* =========================================================
    DEFAULT LOCATION
